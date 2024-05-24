@@ -244,3 +244,50 @@ export const POST_APPA_RESET_PASSWORD = "/auth/affiliates/reset-password";
 
 //Appa Get Profile
 export const POST_APPA_GET_PROFILE = "/affiliates/profile";
+
+//Appa Edit Profile
+export const POST_APPA_EDIT_PROFILE = "/affiliates/update-profile";
+
+//Appa Edit Password
+export const POST_APPA_EDIT_PASSWORD = "/affiliates/update-password";
+
+//Appa Get Wallet
+export const GET_APPA_WALLET = "/affiliates/wallet";
+
+//Appa Create Wallet
+export const CREATE_APPA_WALLET = "/affiliates/create-wallet";
+
+//Appa Get Dashboard Data
+export const GET_DASHBOARD_DATA = "/affiliates/dashboard";
+
+//Appa Get Dashboard Graph Data
+export const GET_DASHBOARD_CHARTS_DATA = "/affiliates/db-charts";
+
+//Appa Get Dashboard Commissions Table Data
+export const GET_DASHBOARD_COMMISSIONS_DATA = "/affiliates/db-commissions";
+
+//Appa Get Drivers Table Data
+export const GET_DRIVERS_DATA = "/affiliates/affiliated-dm";
+
+//Appa Get Businesses Table Data
+export const GET_BIZS_DATA = "/affiliates/affiliated-bizs";
+
+
+//Appa Get Users Table Data
+export const GET_USERS_DATA = "/affiliates/affiliated-users";
+
+//Appa Get Commissions Data
+export const GET_COMMISSIONS_DATA = "/affiliates/commissions-data";
+
+//Appa Get Flutterwave Bank List
+export const GET_BANK_DATA = "/bank-list";
+
+//Appa POST Withdrawal
+export const POST_WITHDRAW_WALLET = "/affiliates/wallet-withdrawal";
+
+//Appa Post Deposit
+export const POST_DEPOSIT_WALLET = "/affiliates/wallet-deposit";
+
+//Appa Get Wallet Transactions
+export const GET_WALLET_TRANSACTIONS = "/affiliates/wallet-transactions";
+

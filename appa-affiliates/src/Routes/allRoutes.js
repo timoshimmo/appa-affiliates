@@ -193,6 +193,15 @@ import Register from "../pages/Authentication/Register";
 import VerifyTokenPage from "../pages/Authentication/VerifyToken";
 import ResetPasswordPage from "../pages/Authentication/ResetPassword";
 
+//Appa Affiliates
+import WalletCreate from '../pages/Wallet/KYCVerification';
+import WalletTransactions from '../pages/Wallet/Transactions';
+import MyTransactions from "../pages/Transactions";
+import Drivers from "../pages/Drivers";
+import Business from "../pages/Bussiness";
+import Commissions from "../pages/Commissions";
+import Users from "../pages/Users";
+
 //Charts
 import LineCharts from "../pages/Charts/ApexCharts/LineCharts";
 import AreaCharts from "../pages/Charts/ApexCharts/AreaCharts";
@@ -442,6 +451,26 @@ const authProtectedRoutes = [
   //User Profile
   { path: "/profile", component: <UserProfile /> },
 
+  //Wallet Pages
+  { path: "/create-wallet", component: <WalletCreate /> },
+  { path: "/wallet", component: <WalletTransactions /> },
+
+  //Transaction Pages
+  { path: "/transactions", component: <MyTransactions /> },
+
+  //Driver Pages
+  { path: "/drivers", component: <Drivers /> },
+
+  //Business Pages
+  { path: "/business", component: <Business /> },
+
+  //Commissions Pages
+  { path: "/commissions", component: <Commissions /> },
+
+ //Users Pages
+ { path: "/users", component: <Users /> },
+  
+  
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   {

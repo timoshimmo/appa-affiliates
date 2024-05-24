@@ -28,7 +28,7 @@ const Login = (props) => {
         error: state.Login.error,
     }));
 
-    const [visible, setVisible] = useState(false);
+    //const [visible, setVisible] = useState(false);
 
     //const [userLogin, setUserLogin] = useState([]);
     const [passwordShow, setPasswordShow] = useState(false);
@@ -92,7 +92,6 @@ const Login = (props) => {
     }, [dispatch, error]);
 
     const onDismiss = () => {
-        setVisible(false);
         dispatch(resetLoginFlag());
 
     }

@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { dealsStatus } from "../../common/data";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getCommissionsTableData } from '../../store/actions';
+
 const DealsStatus = () => {
+
+    const dispatch = useDispatch();
+
+    const [tableData, settableData] = useState([]);
+
+    const { commissionsTableData } = useSelector((state) => ({
+        commissionsTableData: state.Dashboard.commissionsTableData,
+    }));
+
+    useEffect(() => {
+        settableData(commissionsTableData);
+        console.log("DASHBOARD TABLE: ", commissionsTableData);
+    }, [commissionsTableData]);
+
+    useEffect(() => {
+        const obj = JSON.parse(sessionStorage.getItem("authUser"));
+        dispatch(getCommissionsTableData(obj.id));
+    }, [dispatch]);
+
     return (
         <React.Fragment>
-            <Col xl={7}>
+            <Col xxl={7}>
                 <Card>
                     <CardHeader className="align-items-center d-flex">
-                        <h4 className="card-title mb-0 flex-grow-1">Users</h4>
+                        <h4 className="card-title mb-0 flex-grow-1">Orders</h4>
                         <div className="flex-shrink-0">
                             <UncontrolledDropdown className="card-header-dropdown">
                                 <DropdownToggle tag="a" className="text-reset dropdown-btn" role="button">

@@ -9,7 +9,7 @@ const ClosingDeals = () => {
             <Col xxl={7}>
                 <Card className="card-height-100">
                     <CardHeader className="align-items-center d-flex">
-                        <h4 className="card-title mb-0 flex-grow-1">Closing Deals</h4>
+                        <h4 className="card-title mb-0 flex-grow-1">Orders</h4>
                         <div className="flex-shrink-0">
                             <select className="form-select form-select-sm">
                                 <option defaultValue="">Closed Deals</option>
@@ -24,7 +24,7 @@ const ClosingDeals = () => {
                             <table className="table table-bordered table-nowrap align-middle mb-0">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style={{ width: "30%" }}>Deal Name</th>
+                                        <th scope="col" style={{ width: "30%" }}>Order No.</th>
                                         <th scope="col" style={{ width: "30%" }}>Sales Rep</th>
                                         <th scope="col" style={{ width: "20%" }}>Amount</th>
                                         <th scope="col" style={{ width: "20%" }}>Close Date</th>

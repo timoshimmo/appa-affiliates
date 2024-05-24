@@ -90,6 +90,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                                 </Link>
                             </div>
 
+
                             <button
                                 onClick={toogleMenuBtn}
                                 type="button"
@@ -101,7 +102,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                                     <span></span>
                                 </span>
                             </button>
-                            <SearchOption />
+                            {/*<SearchOption />*/}
                         </div>
 
                         <div className="d-flex align-items-center">
@@ -148,7 +149,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                             />
 
                             {/* NotificationDropdown */}
-                            <NotificationDropdown />
+                            {/* <NotificationDropdown /> */}
 
                             {/* ProfileDropdown */}
                             <ProfileDropdown />

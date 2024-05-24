@@ -1,16 +1,18 @@
 import { takeEvery, fork, put, all, call } from "redux-saga/effects";
 
 // Login Redux States
-import { EDIT_PROFILE, GET_PROFILE } from "./actionTypes";
-import { profileSuccess, profileError } from "./actions";
+import { EDIT_PROFILE, GET_PROFILE, EDIT_PASSWORD } from "./actionTypes";
+import { profileSuccess, profileError, editSuccess, editError, passwordSuccess, passwordError } from "./actions";
 //Include Both Helper File with needed methods
 //import { getFirebaseBackend } from "../../../helpers/firebase_helper";
+/*
 import {
   postFakeProfile,
   postJwtProfile,
 } from "../../../helpers/fakebackend_helper";
+*/
 
-import { affiliateGetProfile } from "../../../helpers/backend_helper";
+import { affiliateGetProfile, affiliateEditProfile, affiliateEditPassword } from "../../../helpers/backend_helper";
 
 
 //const fireBaseBackend = getFirebaseBackend();
@@ -25,7 +27,7 @@ function* getProfile({ payload: { params } }) {
       console.log("PROFILE ERR RESPONSE:", response.errors[0]);
       yield put(profileError(response.errors[0].message));
     } else {
-      console.log("PROFILE RESPONSE:", response);
+      //console.log("PROFILE RESPONSE:", response);
       yield put(profileSuccess(response));
     }
 
@@ -37,24 +39,40 @@ function* getProfile({ payload: { params } }) {
 }
 
 
-function* editProfile({ payload: { params } }) {
+function* editProfile({ payload: { user } }) {
   try {
-
-    const response = yield call(affiliateGetProfile, params);
+    const response = yield call(affiliateEditProfile, user);
     if (response.errors) {
-      console.log("PROFILE ERR RESPONSE:", response.errors[0]);
-      yield put(profileError(response.errors[0].message));
+      console.log("EDIT PROFILE ERR RESPONSE:", response.errors[0]);
+      yield put(editError(response.errors[0].message));
     } else {
-
-      yield put(profileSuccess(response));
+      //console.log("EDIT PROFILE SUCCESS RESPONSE:", response);
+      yield put(editSuccess(response));
     }
 
   } catch (error) {
-    yield put(profileError(error));
+    yield put(editError(error));
   }
 
 }
 
+function* editPassword({ payload: { user } }) {
+
+  try {
+    const response = yield call(affiliateEditPassword, user);
+    if (response.errors) {
+      console.log("EDIT PASSWORD ERR RESPONSE:", response.errors[0]);
+      yield put(passwordError(response.errors[0].message));
+    } else {
+      //console.log("EDIT PROFILE SUCCESS RESPONSE:", response);
+      yield put(passwordSuccess(response));
+    }
+
+  } catch (error) {
+    yield put(passwordError(error));
+  }
+
+}
 
 /*
 function* editProfile({ payload: { user } }) {
@@ -87,6 +105,7 @@ function* editProfile({ payload: { user } }) {
 export function* watchProfile() {
   yield takeEvery(EDIT_PROFILE, editProfile);
   yield takeEvery(GET_PROFILE, getProfile);
+  //yield takeEvery(EDIT_PASSWORD, editPassword);
 }
 
 function* ProfileSaga() {

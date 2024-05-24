@@ -34,19 +34,19 @@ const crmWidgets = [
         label: "Commissions",
         badge: "ri-arrow-up-circle-line text-success",
         icon: "ri-exchange-dollar-line",
-        counter: "489.4",
-        decimals: 1,
-        suffix: "k",
-        prefix: "$"
+        counter: "489",
+        decimals: 0,
+        suffix: "",
+        prefix: "₦"
     },
     {
         id: 4,
         label: "Total Transactions",
         badge: "ri-arrow-up-circle-line text-success",
         icon: "ri-exchange-line",
-        counter: "1596.5",
-        decimals: 1,
-        prefix: "$",
+        counter: "15096",
+        decimals: 2,
+        prefix: "₦",
         separator: ",",
         suffix: ""
     },
@@ -55,7 +55,19 @@ const crmWidgets = [
         label: "Wallet Balance",
         badge: "ri-arrow-down-circle-line text-danger",
         icon: "ri-wallet-line",
-        counter: "2659",
+        counter: "3000",
+        decimals: 1,
+        separator: ",",
+        suffix: "",
+        prefix: "₦"
+    },
+
+    {
+        id: 6,
+        label: "Orders",
+        badge: "ri-arrow-down-circle-line text-danger",
+        icon: "ri-price-tag-2-line",
+        counter: "10",
         decimals: 0,
         separator: ",",
         suffix: "",
@@ -287,7 +299,6 @@ const currentYearBalanceData = [{
 }];
 
 // Deal Type
-
 const todayDealData = [{
     name: 'Pending',
     data: [40, 25, 15, 20, 50, 10],

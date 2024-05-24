@@ -49,9 +49,9 @@ const ProfileDropdown = () => {
                     <h6 className="dropdown-header">Welcome {userName}!</h6>
                     <DropdownItem href={process.env.PUBLIC_URL + "/profile"}><i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                         <span className="align-middle">Profile</span></DropdownItem>
-                    <DropdownItem href={process.env.PUBLIC_URL + "/apps-nft-wallet"}><i
+                    <DropdownItem href={process.env.PUBLIC_URL + "/wallet"}><i
                         className="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span
-                            className="align-middle">Wallet : <b>₦ 0</b></span></DropdownItem>
+                            className="align-middle">Wallet</span></DropdownItem>
                    {/* <DropdownItem href={process.env.PUBLIC_URL + "/apps-chat"}><i
                         className="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span
                             className="align-middle">Messages</span></DropdownItem>

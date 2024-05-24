@@ -151,7 +151,7 @@ const DealTypeCharts = ({ dataColors, series }) => {
 
 const BalanceOverviewCharts = ({ dataColors, series }) => {
     var revenueExpensesChartsColors = getChartColorsArray(dataColors);
-
+//["#07bc0c", "#3498db", "#e74c3c"]
     var options = {
         chart: {
             height: 290,
@@ -171,12 +171,12 @@ const BalanceOverviewCharts = ({ dataColors, series }) => {
         yaxis: {
             labels: {
                 formatter: function (value) {
-                    return "$" + value + "k";
+                    return "₦" + value;
                 }
             },
             tickAmount: 5,
             min: 0,
-            max: 260
+            max:1000
         },
         colors: revenueExpensesChartsColors,
         fill: {

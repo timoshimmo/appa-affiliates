@@ -73,6 +73,24 @@ import Jobs from "./job/reducer";
 //API Key
 import APIKey from "./apikey/reducer";
 
+//Wallet Appa
+import Wallet from "./wallet/reducer";
+
+//Dashoard Appa
+import Dashboard from "./dashboard/reducer";
+
+//Drivers Appa
+import Drivers from "./drivers/reducer";
+
+//Businesses Appa
+import Businesses from "./business/reducer";
+
+//Users Appa
+import Users from "./users/reducer";
+
+//Commissions Data
+import Commissions from "./commissions/reducer";
+
 const rootReducer = combineReducers({
     // public
     Layout,
@@ -103,7 +121,13 @@ const rootReducer = combineReducers({
     FileManager,
     Todos,
     Jobs,
-    APIKey
+    APIKey,
+    Wallet,
+    Dashboard,
+    Drivers,
+    Businesses,
+    Users,
+    Commissions
 });
 
 export default rootReducer;

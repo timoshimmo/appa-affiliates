@@ -494,10 +494,23 @@ const Navdata = () => {
             },
         },
         {
+            id: "enrolled-users",
+            label: "Users",
+            icon: "ri-user-6-line",
+            link: "/users",
+            click: function (e) {
+                e.preventDefault();
+                setIsApps(!isApps);
+                setIscurrentState('Apps');
+                updateIconSidebar(e);
+            },
+            stateVariables: isApps,
+        },
+        {
             id: "enrolled-drivers",
             label: "Drivers",
             icon: "ri-user-2-line",
-            link: "/#",
+            link: "/drivers",
             click: function (e) {
                 e.preventDefault();
                 setIsApps(!isApps);
@@ -510,7 +523,7 @@ const Navdata = () => {
             id: "enrolled-businesses",
             label: "Businesses",
             icon: "ri-store-line",
-            link: "/#",
+            link: "/business",
             click: function (e) {
                 e.preventDefault();
                 setIsApps(!isApps);
@@ -523,7 +536,7 @@ const Navdata = () => {
             id: "commissions",
             label: "Commissions",
             icon: "ri-money-dollar-box-line",
-            link: "/#",
+            link: "/commissions",
             click: function (e) {
                 e.preventDefault();
                 setIsApps(!isApps);
@@ -532,12 +545,24 @@ const Navdata = () => {
             },
             stateVariables: isApps,
         },
-
         {
             id: "transactions",
             label: "Transactions",
             icon: "ri-exchange-line",
-            link: "/#",
+            link: "/transactions",
+            click: function (e) {
+                e.preventDefault();
+                setIsApps(!isApps);
+                setIscurrentState('Apps');
+                updateIconSidebar(e);
+            },
+            stateVariables: isApps,
+        },
+        {
+            id: "wallet",
+            label: "Wallet",
+            icon: "ri-wallet-line",
+            link: "/wallet",
             click: function (e) {
                 e.preventDefault();
                 setIsApps(!isApps);

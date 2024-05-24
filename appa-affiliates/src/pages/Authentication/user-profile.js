@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { isEmpty } from "lodash";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -6,19 +6,19 @@ import {
   Row,
   Col,
   Card,
-  Alert,
   CardBody,
   Button,
   Label,
   Input,
-  FormFeedback,
   Form,
   CardHeader,
   Nav, 
   NavItem, 
   NavLink,
   TabContent, 
-  TabPane
+  TabPane,
+  Spinner,
+  Alert
 } from "reactstrap";
 
 // Formik Validation
@@ -34,75 +34,128 @@ import { useSelector, useDispatch } from "react-redux";
 import avatar from "../../assets/images/users/user-dummy-img.jpg";
 import avatar1 from "../../assets/images/users/user-dummy-img.jpg";
 // actions
-import { editProfile, getProfile, resetProfileFlag } from "../../store/actions";
+import { editProfile, getProfile, resetProfileFlag, resetPasswordFlag } from "../../store/actions";
+import { affiliateEditPassword } from "../../helpers/backend_helper";
+import { ToastContainer, toast } from 'react-toastify';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setemail] = useState("admin@gmail.com");
-  const [idx, setidx] = useState("1");
+  //const [email, setemail] = useState("admin@gmail.com");
+  //const [idx, setidx] = useState("1");
 
-  const [userName, setUserName] = useState("Admin");
+  //const [userName, setUserName] = useState("Admin");
 
   const [activeTab, setActiveTab] = useState("1");
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passError, setPasswordError] = useState(false);
+  const [passwordSuccess, setPasswordSuccess] = useState(false);
+
 
     const tabChange = (tab) => {
         if (activeTab !== tab) setActiveTab(tab);
     };
 
-  const { user, success, error } = useSelector(state => ({
+  const { user, success, error, loading, editSuccess, editError } = useSelector(state => ({
     user: state.Profile.user.user,
     success: state.Profile.success,
-    error: state.Profile.error
+    error: state.Profile.error,
+    loading: state.Profile.loading,
+    editError: state.Profile.editError,
+    editSuccess: state.Profile.editSuccess,
   }));
 
+  const passwordNotification = () => toast("Password Successfully Updated!", { position: "top-right", hideProgressBar: false, className: 'bg-success text-white' });
+
+  const handlePasswordUpdate = user => {
+
+    setPasswordLoading(true);
+    
+    setTimeout(() => {
+        
+        try {
+        
+            const response = affiliateEditPassword(user);
+            if (response.errors) {
+              //console.log("EDIT PASSWORD ERR RESPONSE:", response.errors[0]);
+              setPasswordError(true);
+              //yield put(passwordError(response.errors[0].message));
+            } else {
+              //console.log("EDIT PROFILE SUCCESS RESPONSE:", response);
+              setPasswordSuccess(true);
+             // yield put(passwordSuccess(response));
+            }
+            setPasswordLoading(false);
+        
+          } catch (error) {
+            //yield put(passwordError(error));
+            //console.log("EDIT PASSWORD ERR RESPONSE:", error);
+            setPasswordLoading(false);
+            setPasswordError(true);
+          }
+    }, 3000);
+    
+  }
+
+  
   useEffect(() => {
     //const token = JSON.parse(sessionStorage.getItem("authUser")) ? JSON.parse(sessionStorage.getItem("authUser")).token : null;
 
-    if (JSON.parse(sessionStorage.getItem("authUser"))) {
+    //if (JSON.parse(sessionStorage.getItem("authUser"))) {
       
-        //console.log("SUCCESS: ", success);
+    //console.log("SUCCESS: ", success);
+
+    if(editSuccess) {
         const obj = JSON.parse(sessionStorage.getItem("authUser"));
+        if (!isEmpty(user)) {
+           // console.log("AUTH USER", JSON.stringify(user));
+            obj.firstName = user?.f_name;
+            obj.lastName = user?.l_name;
+            sessionStorage.removeItem("authUser");
+            sessionStorage.setItem("authUser", JSON.stringify(obj));
+        }
+        //window.location.reload();
+    }
 
-        console.log("USER: ", obj);
+    if(passwordSuccess) {
+        passwordNotification();
+        dispatch(resetPasswordFlag());
+    }
+    
 
-      dispatch(getProfile(obj.token));
+  }, [editSuccess, passwordSuccess, user]);
 
-     if (!isEmpty(user)) {
+  useEffect(() => {
 
-        console.log("AUTH USER", JSON.stringify(user));
-        obj.f_name = user.f_name;
+    const obj = JSON.parse(sessionStorage.getItem("authUser"));
+    dispatch(getProfile(obj.token));
+    if (!isEmpty(user)) {
+        //console.log("AUTH USER", JSON.stringify(user));
+        obj.firstName = user?.f_name;
+        obj.lastName = user?.l_name;
         sessionStorage.removeItem("authUser");
         sessionStorage.setItem("authUser", JSON.stringify(obj));
-      }
-
-      //console.log("AUTH USER", JSON.stringify(obj));
-      const name = obj.firstName + " " + obj.lastName;
-
-      setUserName(name);
-      setemail(obj.email);
-     // setidx(obj._id || "1");
-
-      setTimeout(() => {
-        dispatch(resetProfileFlag());
-      }, 3000);
     }
-  }, []);
+
+  }, [dispatch]);
+
 
   const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
-    enableReinitialize: true,
-
+    
     initialValues: {
-      first_name: user?.f_name || '',
-      last_name: user?.l_name || '',
+      f_name: user?.f_name || '',
+      l_name: user?.l_name || '',
       email: user?.email || '',
       phone: user?.phone || '',
     },
+    
     validationSchema: Yup.object({
-      first_name: Yup.string().required("Please Enter Your First Name"),
-      last_name: Yup.string().required("Please Enter Your Last Name"),
+      f_name: Yup.string().required("Please Enter Your First Name"),
+      l_name: Yup.string().required("Please Enter Your Last Name"),
       email: Yup.string()
       .email('Please enter a valid email address')
       .required('Please enter your email'),
@@ -113,9 +166,68 @@ const UserProfile = () => {
       .required('Please enter your phone number'),
     }),
     onSubmit: (values) => {
-      dispatch(editProfile(values));
-    }
+        dispatch(editProfile(values));
+        //console.log("Submit Profile!");
+        
+    },
+
+    // enableReinitialize : use this flag when initial values needs to be changed
+    enableReinitialize: true,
   });
+
+  const passValidation = useFormik({
+
+        enableReinitialize: true,
+
+        initialValues: {
+            email: user?.email || '',
+            old_password: '',
+            password: '',
+            confirm_password: ''
+        },
+
+        validationSchema: Yup.object({
+            old_password: Yup.string()
+                .min(6, 'Old Password must be at least 6 characters')
+                .required('Old Password is required'),
+            password: Yup.string()
+                .min(6, 'Password must be at least 6 characters')
+                .required('Password is required'),
+            confirm_password: Yup.string()
+                .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                .required('Confirm password is required')
+        }),
+
+        onSubmit: (values, {resetForm}) => {
+           // if(formSubmitted === 2) {
+               // dispatchOne(editPassword(values));
+            //}
+            handlePasswordUpdate(values);
+            resetForm();
+           // console.log("Submit Password!" + user?.email);
+        }
+
+  });
+
+  const onDismiss = () => {
+    dispatch(resetProfileFlag());
+
+}
+
+  const onDismissPass = () => {
+    dispatch(resetPasswordFlag());
+
+}
+
+  /*
+
+onSubmit={(e) => {
+    e.preventDefault();
+    const buttonName = e.nativeEvent.submitter.name;
+    if (buttonName === "btnUpdateProfile") validation.handleSubmit();
+    return false;
+}}
+  */
 
   document.title = "Appa Affiliates | Profile";
   return (
@@ -173,9 +285,26 @@ const UserProfile = () => {
                                         </span>
                                     </Label>
                                 </div>
+                               
                             </div>
-                            <h5 className="fs-16 mb-1">{userName}</h5>
-                            <p className="text-muted mb-0">{email}</p>
+                          
+                            
+                                
+                                <div className="w-100 d-flex flex-column align-items-center text-center">
+                                    {user?.f_name  ?
+                                        <>
+                                            <h5 className="fs-16 mb-1">{user?.f_name + " " + user?.l_name}</h5>
+                                            <p className="text-muted mb-0">{user?.ref_code || ""}</p>
+                                        </>
+                                        :
+                                        <div className="w-50 text-center">
+                                            <Skeleton count={2} />
+                                        </div>
+                                    }
+                                </div>
+                               
+                            
+                            
                         </div>
                     </CardBody>
                 </Card>
@@ -281,6 +410,9 @@ const UserProfile = () => {
                     <CardBody className="p-4">
                         <TabContent activeTab={activeTab}>
                             <TabPane tabId="1">
+                                <div className="my-2">
+                                    {editError && editError ? (<Alert color="danger" toggle={onDismiss}> Error updating your profile. Pls try again </Alert>) : null}
+                                </div>
                                 <Form>
                                     <Row>
                                         <Col lg={6}>
@@ -288,10 +420,11 @@ const UserProfile = () => {
                                                 <Label htmlFor="firstnameInput" className="form-label">First
                                                     Name</Label>
                                                 <Input type="text" className="form-control" id="firstnameInput"
+                                                    name="f_name"
                                                     placeholder="Enter your firstname" 
-                                                    value={validation.values.first_name || ""}  
                                                     onChange={validation.handleChange}
                                                     onBlur={validation.handleBlur}
+                                                    value={validation.values.f_name || ""}
                                                     />
                                             </div>
                                         </Col>
@@ -300,9 +433,11 @@ const UserProfile = () => {
                                                 <Label htmlFor="lastnameInput" className="form-label">Last
                                                     Name</Label>
                                                 <Input type="text" className="form-control" id="lastnameInput"
-                                                    placeholder="Enter your lastname" value={validation.values.last_name || ""} 
+                                                    name="l_name"
+                                                    placeholder="Enter your lastname" 
                                                     onChange={validation.handleChange}
                                                     onBlur={validation.handleBlur}
+                                                    value={validation.values.l_name || ""}
                                                     />
                                             </div>
                                         </Col>
@@ -312,10 +447,11 @@ const UserProfile = () => {
                                                     Number</Label>
                                                 <Input type="text" className="form-control"
                                                     id="phonenumberInput"
+                                                    name="phone"
                                                     placeholder="Enter your phone number"
-                                                    value={validation.values.phone || ""} 
                                                     onChange={validation.handleChange}
                                                     onBlur={validation.handleBlur}
+                                                    value={validation.values.phone || ""}
                                                     />
 
                                             </div>
@@ -325,10 +461,11 @@ const UserProfile = () => {
                                                 <Label htmlFor="emailInput" className="form-label">Email
                                                     Address</Label>
                                                 <Input type="email" className="form-control" id="emailInput"
+                                                    name="email"
                                                     placeholder="Enter your email"
-                                                    value={validation.values.email || ""} 
                                                     onChange={validation.handleChange}
                                                     onBlur={validation.handleBlur}
+                                                    value={validation.values.email || ""} 
                                                     />
                                             </div>
                                         </Col>
@@ -336,8 +473,12 @@ const UserProfile = () => {
                                         
                                         <Col lg={12}>
                                             <div className="hstack gap-2 justify-content-end">
-                                                <button type="button"
-                                                    className="btn btn-dark">Save</button>
+                                                {/*<button type="button"
+                                                    className="btn btn-dark">Save</button> */}
+                                                <Button name="btnUpdateProfile" color="dark" disabled={editError ? false : loading ? true : false} className="btn btn-dark" type="button" onClick={()=> { validation.handleSubmit()}}>
+                                                    {editError ? false : loading ? <Spinner size="sm" className='me-2'> Loading... </Spinner> : null}
+                                                    Save
+                                                </Button>
                                                 <button type="button"
                                                     className="btn btn-warning" onClick={() => navigate(-1)}>Cancel</button>
                                             </div>
@@ -345,8 +486,19 @@ const UserProfile = () => {
                                     </Row>
                                 </Form>
                             </TabPane>
+                                {/*
+                                    onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const buttonName = e.nativeEvent.submitter.name;
+                                    if (buttonName === "changePassword") passValidation.handleSubmit();
+                                    return false;
+                                  }}
 
+                                */}
                             <TabPane tabId="2">
+                                <div className="my-2">
+                                    {passError && passError ? (<Alert color="danger" toggle={onDismissPass}> Error updating your password. Pls Re-type your details and try again </Alert>) : null}
+                                </div>
                                 <Form>
                                     <Row className="g-2">
                                         <Col lg={4}>
@@ -355,7 +507,15 @@ const UserProfile = () => {
                                                     Password*</Label>
                                                 <Input type="password" className="form-control"
                                                     id="oldpasswordInput"
-                                                    placeholder="Enter current password" />
+                                                    name="old_password"
+                                                    placeholder="Enter current password" 
+                                                    onChange={passValidation.handleChange}
+                                                    onBlur={passValidation.handleBlur}
+                                                    value={passValidation.values.old_password || ""}
+                                                    invalid={
+                                                        passValidation.touched.old_password && passValidation.errors.old_password ? true : false
+                                                    }
+                                                />
                                             </div>
                                         </Col>
 
@@ -363,8 +523,15 @@ const UserProfile = () => {
                                             <div>
                                                 <Label htmlFor="newpasswordInput" className="form-label">New
                                                     Password*</Label>
-                                                <Input type="password" className="form-control"
-                                                    id="newpasswordInput" placeholder="Enter new password" />
+                                                <Input type="password" className="form-control"  name="password"
+                                                    id="newpasswordInput" placeholder="Enter new password" 
+                                                    onChange={passValidation.handleChange}
+                                                    onBlur={passValidation.handleBlur}
+                                                    value={passValidation.values.password || ""}
+                                                    invalid={
+                                                        passValidation.touched.password && passValidation.errors.password ? true : false
+                                                    }
+                                                />
                                             </div>
                                         </Col>
 
@@ -372,9 +539,16 @@ const UserProfile = () => {
                                             <div>
                                                 <Label htmlFor="confirmpasswordInput" className="form-label">Confirm
                                                     Password*</Label>
-                                                <Input type="password" className="form-control"
+                                                <Input type="password" className="form-control" name="confirm_password"
                                                     id="confirmpasswordInput"
-                                                    placeholder="Confirm password" />
+                                                    placeholder="Confirm password" 
+                                                    onChange={passValidation.handleChange}
+                                                    onBlur={passValidation.handleBlur}
+                                                    value={passValidation.values.confirm_password || ""}
+                                                    invalid={
+                                                        passValidation.touched.confirm_password && passValidation.errors.confirm_password ? true : false
+                                                    }
+                                                />
                                             </div>
                                         </Col>
 
@@ -387,10 +561,14 @@ const UserProfile = () => {
                                         </Col>
 
                                         <Col lg={12}>
-                                            <div className="text-end">
+                                                <Button name="changePassword" color="dark" disabled={passwordLoading ? true : false} className="btn btn-dark" type="button" onClick={()=> { passValidation.handleSubmit() }}>
+                                                    {passwordLoading ? <Spinner size="sm" className='me-2'> Loading... </Spinner> : null}
+                                                    Change Password
+                                                </Button>
+                                            {/*<div className="text-end">
                                                 <button type="button" className="btn btn-info">Change
                                                     Password</button>
-                                            </div>
+                                                </div> */}
                                         </Col>
 
                                     </Row>
@@ -447,6 +625,7 @@ const UserProfile = () => {
             </CardBody>
           </Card>
           */}
+            <ToastContainer />
         </Container>
       </div>
     </React.Fragment>

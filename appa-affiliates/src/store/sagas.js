@@ -20,8 +20,12 @@ import ecommerceSaga from "./ecommerce/saga";
 import projectSaga from "./projects/saga";
 // Task
 import taskSaga from "./tasks/saga";
-// Crypto
+//Crypto
 import cryptoSaga from "./crypto/saga";
+
+//Wallet
+import walletSaga from "./wallet/saga";
+
 //TicketsList
 import ticketsSaga from "./tickets/saga";
 
@@ -37,6 +41,9 @@ import dashboardAnalyticsSaga from "./dashboardAnalytics/saga";
 
 // Dashboard CRM
 import dashboardCrmSaga from "./dashboardCRM/saga";
+
+//Appa Dashboard
+import dashboardSaga from "./dashboard/saga";
 
 // Dashboard Ecommerce
 import dashboardEcommerceSaga from "./dashboardEcommerce/saga";
@@ -65,6 +72,18 @@ import jobSaga from "./job/saga";
 //API Key
 import APIKeysaga from "./apikey/saga";
 
+//Drivers Appa
+import driversSaga from "./drivers/saga";
+
+//Businesses Appa
+import bizsSaga from "./business/saga";
+
+//Users Appa
+import usersSaga from "./users/saga";
+
+//Commissions Appa
+import commissionsSaga from "./commissions/saga";
+
 export default function* rootSaga() {
   yield all([
     //public
@@ -79,6 +98,7 @@ export default function* rootSaga() {
     fork(projectSaga),
     fork(taskSaga),
     fork(cryptoSaga),
+    fork(walletSaga),
     fork(ticketsSaga),
     fork(calendarSaga),
     fork(ecommerceSaga),
@@ -87,6 +107,7 @@ export default function* rootSaga() {
     fork(mailboxSaga),
     fork(dashboardAnalyticsSaga),
     fork(dashboardCrmSaga),
+    fork(dashboardSaga),
     fork(dashboardEcommerceSaga),
     fork(dashboardCryptoSaga),
     fork(dashboardProjectSaga),
@@ -96,5 +117,9 @@ export default function* rootSaga() {
     fork(todos),
     fork(jobSaga),
     fork(APIKeysaga),
+    fork(driversSaga),
+    fork(bizsSaga),
+    fork(usersSaga),
+    fork(commissionsSaga)
   ]);
 }
