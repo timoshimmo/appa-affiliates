@@ -26,7 +26,7 @@ useEffect(() => {
     settableData(commissionsData.commissions);
     setRatesData(commissionsData.rates);
     //setValuesData(commissionsData.values);
-    console.log("COMMISSIONS TABLE DATA: ", commissionsData.commissions);
+    //console.log("COMMISSIONS TABLE DATA: ", commissionsData.commissions);
   }
  
 }, [commissionsData]);

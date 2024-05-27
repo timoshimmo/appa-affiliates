@@ -15,8 +15,8 @@ function* registerUser({ payload: { user } }) {
   try {
       const response = yield call(affiliateRegister, user);
       if (response.errors) {
-        //console.log("REG ERR RESPONSE:", response.errors[0]);
-        yield put(registerUserFailed(response.errors[0].message));
+        console.log("REG ERR RESPONSE:", response.errors);
+        yield put(registerUserFailed(response.errors.message));
       } else {
         //console.log("REG SUCCESS:", JSON.stringify(response));
         yield put(registerUserSuccessful(response));
