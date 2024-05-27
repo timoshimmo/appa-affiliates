@@ -15,7 +15,7 @@ const RatesWidgets = props => {
                           <div className="d-flex mb-3">
                               <div className="flex-grow-1">
                                   <lord-icon
-                                      src="https://cdn.lordicon.com/ofdfurqa.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "55px", height: "55px" }}>
+                                      src="https://cdn.lordicon.com/ubtcpxvi.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "55px", height: "55px" }}>
                                   </lord-icon>
                               </div>
                               

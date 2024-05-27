@@ -50,13 +50,13 @@ useEffect(() => {
       },
       {
         Header: "Rates",
-        accessor: "rate_value",
+        accessor: "rate.value",
         disableFilters: true,
         filterable: false,
       },
       {
         Header: "Rate Type",
-        accessor: "rate_type",
+        accessor: "rate.rate_type",
         disableFilters: true,
         filterable: false,
       },

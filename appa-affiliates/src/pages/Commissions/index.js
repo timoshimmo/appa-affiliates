@@ -26,7 +26,7 @@ useEffect(() => {
     settableData(commissionsData.commissions);
     setRatesData(commissionsData.rates);
     //setValuesData(commissionsData.values);
-    //console.log("COMMISSIONS DATA: ", commissionsData);
+    console.log("COMMISSIONS TABLE DATA: ", commissionsData.commissions);
   }
  
 }, [commissionsData]);
@@ -43,7 +43,7 @@ useEffect(() => {
         <Container fluid>
           <BreadCrumb title="Commissions" pageTitle="Home" />
             <Row>
-                <RatesWidgets ratesData={commissionsData.rates}/>
+                <RatesWidgets ratesData={ratesData}/>
             </Row>
             <Row>
                 <ValueWidgets valuesData={commissionsData.values}/>
@@ -55,7 +55,7 @@ useEffect(() => {
                     <h5 className="card-title mb-0">Earned Commissions</h5>
                   </CardHeader>
                   <CardBody>
-                    <CommissionsTable tableData={commissionsData.commissions}/>
+                    <CommissionsTable tableData={tableData}/>
                   </CardBody>
                 </Card>
               </Col>

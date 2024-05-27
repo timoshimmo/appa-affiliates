@@ -42,7 +42,7 @@ const Widgets = props => {
                                 </h1>
                             </div>
                         </div>
-                        <h6 className="text-muted mb-0">Available Balance (USD)</h6>
+                        <h6 className="text-muted mb-0">Available Balance (NGN)</h6>
                     </CardBody>
                 </Card>
             </Col>

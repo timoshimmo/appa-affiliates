@@ -5,17 +5,9 @@ import { Card, CardBody, CardHeader, Col, Row, Spinner } from 'reactstrap';
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from '../../Components/Common/TableContainer';
-import { getTransactionWallet, getTransationList } from "../../store/actions";
+import { getTransactionWallet } from "../../store/actions";
 import moment from 'moment';
 
-import {
-    FromCol,
-    ToCol,
-    DetailsCol,
-    TransactionID,
-    TypeCol,
-    Status
-} from "./TransactionsCol";
 
 const AllTransactions = () => {
     const dispatch = useDispatch();
