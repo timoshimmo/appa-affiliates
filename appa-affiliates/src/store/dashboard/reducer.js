@@ -3,13 +3,15 @@ import {
   API_RESPONSE_ERROR,
   GET_COMMISSIONS_CHARTS_DATA,
   GET_COMMISSIONS_TABLE_DATA,
-  GET_WIDGET_DATA
+  GET_WIDGET_DATA,
+  GET_PERFORMANCE_DATA
 } from "./actionType";
 
 const INIT_STATE = {
-  commissionsOverviewData: [],
+  commissionsOverviewData: {},
   commissionsTableData: [],
   widgetData: [],
+  performanceData: [],
   error: {}
 };
 
@@ -33,7 +35,11 @@ const Dashboard = (state = INIT_STATE, action) => {
             ...state,
             widgetData: action.payload.data
           };
-
+        case GET_PERFORMANCE_DATA:
+          return {
+              ...state,
+              performanceData: action.payload.data
+          };
         default:
           return state;
       }
@@ -51,6 +57,12 @@ const Dashboard = (state = INIT_STATE, action) => {
           };
 
         case GET_WIDGET_DATA:
+          return {
+            ...state,
+            error: action.payload.error
+          };
+
+        case GET_PERFORMANCE_DATA:
           return {
             ...state,
             error: action.payload.error

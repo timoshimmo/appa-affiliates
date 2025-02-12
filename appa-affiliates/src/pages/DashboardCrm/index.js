@@ -9,8 +9,10 @@ import CommissionsTable from './CommissionsTable';
 //import MyTasks from './MyTasks';
 //import SalesForecast from './SalesForecast';
 //import UpcomingActivities from './UpcomingActivities';
+//import SalesByLocations from '../DashboardEcommerce/SalesByLocations';
 import Widgets from './Widgets';
 import CommissionCharts from './CommissionCharts';
+import PerformancePercentile from './PerformancePercentile';
 
 const DashboardCrm = () => {
     document.title = "Appa Affiliates | Dashboard";
@@ -25,6 +27,7 @@ const DashboardCrm = () => {
                        
                     <Row>
                         <CommissionCharts />
+                        <PerformancePercentile />
                     </Row>
                     <Row>
                         <CommissionsTable />

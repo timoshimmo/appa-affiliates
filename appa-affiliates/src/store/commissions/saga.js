@@ -11,6 +11,7 @@ function* getCommissionsData({ id }) {
 
   try {
     const response = yield call(affiliateGetCommissionsData, id);
+    console.log("RES: ", response);
     yield put(commissionsApiSuccess(GET_COMMISSIONS_DATA, response));
   } catch (error) {
     yield put(commissionsApiError(GET_COMMISSIONS_DATA, error));

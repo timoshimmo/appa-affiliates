@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from 'reactstrap';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Mousewheel } from "swiper";
+import { Player } from '@lordicon/react';
+import coinsIcon from "../../../assets/images/lottie/wired-outline-298-coins-hover-jump.json";
+import coinIcon from "../../../assets/images/lottie/wired-outline-290-coin-hover-pinch.json";
+import piggyBankIcon from "../../../assets/images/lottie/wired-outline-453-savings-pig-hover-pinch.json";
+import exchageIcon from "../../../assets/images/lottie/wired-outline-220-arrow-9-hover-pointing.json";
+
+
+//const ICON = require('./lock.json');
 
 const Widgets = props => {
 
@@ -22,6 +29,19 @@ const Widgets = props => {
         }
     }, [props]); */
 
+    const coinsRef = useRef(null);
+    const coinRef = useRef(null);
+    const piggyBankRef = useRef(null);
+    const arrowRef = useRef(null);
+  
+    useEffect(() => {
+        coinsRef.current?.playFromBeginning();
+        coinRef.current?.playFromBeginning();
+        piggyBankRef.current?.playFromBeginning();
+        arrowRef.current?.playFromBeginning();
+    }, [])
+
+
     return (
         <React.Fragment>
             <Col xxl={3} md={6}>
@@ -29,9 +49,12 @@ const Widgets = props => {
                     <CardBody>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/vaeagfzc.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "75px", height: "75px" }}>
-                                </lord-icon>
+                            <Player 
+                                ref={coinsRef} 
+                                size={75}
+                                icon={ coinsIcon }
+                                onComplete={() => coinsRef.current?.playFromBeginning()}
+                            />
                             </div>
                             <div className='d-flex align-items-center'>
                                 <h1 className="mb-2">
@@ -51,7 +74,12 @@ const Widgets = props => {
                     <CardBody>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <lord-icon src="https://cdn.lordicon.com/qhviklyi.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "75px", height: "75px" }}></lord-icon>
+                            <Player 
+                                ref={coinRef} 
+                                size={75}
+                                icon={ coinIcon }
+                                onComplete={() => coinRef.current?.playFromBeginning()}
+                            />
                             </div>
                             <div className='d-flex align-items-center'>
                                 <h1 className="mb-2">
@@ -72,12 +100,12 @@ const Widgets = props => {
                     <CardBody>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/yeallgsa.json"
-                                    trigger="loop"
-                                    colors="primary:#405189,secondary:#0ab39c"
-                                    style={{ width: "75px", height: "75px" }}>
-                                </lord-icon>
+                            <Player 
+                                ref={piggyBankRef} 
+                                size={75}
+                                icon={ piggyBankIcon }
+                                onComplete={() => piggyBankRef.current?.playFromBeginning()}
+                            />
                             </div>
                             <div className='d-flex align-items-center'>
                                 <h1 className="mb-2">
@@ -97,12 +125,12 @@ const Widgets = props => {
                     <CardBody>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/axacjdbs.json"
-                                    trigger="loop"
-                                    colors="primary:#405189,secondary:#0ab39c"
-                                    style={{ width: "75px", height: "75px" }}>
-                                </lord-icon>
+                            <Player 
+                                ref={arrowRef} 
+                                size={75}
+                                icon={ exchageIcon }
+                                onComplete={() => arrowRef.current?.playFromBeginning()}
+                            />
                             </div>
                             <div className='d-flex align-items-center'>
                                 <h1 className="mb-2">

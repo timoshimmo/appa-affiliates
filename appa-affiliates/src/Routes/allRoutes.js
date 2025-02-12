@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
+/*
 //Dashboard
 import DashboardAnalytics from "../pages/DashboardAnalytics";
-import DashboardCrm from "../pages/DashboardCrm";
 import DashboardEcommerce from "../pages/DashboardEcommerce";
 import DashboardJob from "../pages/DashboardJob/";
 import DashboardCrypto from "../pages/DashboardCrypto";
@@ -185,6 +185,7 @@ import BasicPasswCreate from "../pages/AuthenticationInner/PasswordCreate/BasicP
 import CoverPasswCreate from "../pages/AuthenticationInner/PasswordCreate/CoverPasswCreate";
 import Offlinepage from "../pages/AuthenticationInner/Errors/Offlinepage";
 
+*/
 //login
 import Login from "../pages/Authentication/Login";
 import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
@@ -201,7 +202,11 @@ import Drivers from "../pages/Drivers";
 import Business from "../pages/Bussiness";
 import Commissions from "../pages/Commissions";
 import Users from "../pages/Users";
+import DashboardCrm from "../pages/DashboardCrm";
+import UserProfile from "../pages/Authentication/user-profile";
 
+
+/*
 //Charts
 import LineCharts from "../pages/Charts/ApexCharts/LineCharts";
 import AreaCharts from "../pages/Charts/ApexCharts/AreaCharts";
@@ -244,16 +249,14 @@ import JobLanding from "../pages/Job_Landing/Job";
 import OnePage from "../pages/Landing/OnePage";
 import NFTLanding from "../pages/Landing/NFTLanding";
 
-// User Profile
-import UserProfile from "../pages/Authentication/user-profile";
-
 import FileManager from "../pages/FileManager";
 import ToDoList from "../pages/ToDo";
 
+*/
+
 const authProtectedRoutes = [
-  { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
+ /* { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
   { path: "/dashboard-ecommerce", component: <DashboardEcommerce /> },
-  { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/index", component: <DashboardEcommerce /> },
   { path: "/dashboard-crypto", component: <DashboardCrypto /> },
   { path: "/dashboard-projects", component: <DashboardProject /> },
@@ -448,6 +451,11 @@ const authProtectedRoutes = [
   { path: "/pages-privacy-policy", component: <PrivecyPolicy /> },
   { path: "/pages-terms-condition", component: <TermsCondition /> },
 
+  */
+
+  //Dashboard
+  { path: "/dashboard", component: <DashboardCrm /> },
+
   //User Profile
   { path: "/profile", component: <UserProfile /> },
 
@@ -491,7 +499,7 @@ const publicRoutes = [
   { path: "/reset-password", component: <ResetPasswordPage /> },
 
   //AuthenticationInner pages
-  { path: "/auth-signin-basic", component: <BasicSignIn /> },
+ /* { path: "/auth-signin-basic", component: <BasicSignIn /> },
   { path: "/auth-signin-cover", component: <CoverSignIn /> },
   { path: "/auth-signup-basic", component: <BasicSignUp /> },
   { path: "/auth-signup-cover", component: <CoverSignUp /> },
@@ -519,6 +527,7 @@ const publicRoutes = [
   { path: "/auth-pass-change-basic", component: <BasicPasswCreate /> },
   { path: "/auth-pass-change-cover", component: <CoverPasswCreate /> },
   { path: "/auth-offline", component: <Offlinepage /> },
+   */
 
 ];
 

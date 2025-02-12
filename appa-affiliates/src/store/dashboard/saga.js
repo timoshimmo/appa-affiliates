@@ -1,9 +1,9 @@
 import { call, put, takeEvery, all, fork } from "redux-saga/effects";
 
 // Crypto Redux States
-import { GET_COMMISSIONS_CHARTS_DATA, GET_COMMISSIONS_TABLE_DATA, GET_WIDGET_DATA } from "./actionType";
+import { GET_COMMISSIONS_CHARTS_DATA, GET_COMMISSIONS_TABLE_DATA, GET_WIDGET_DATA, GET_PERFORMANCE_DATA } from "./actionType";
 import { dashboardApiSuccess, dashboardApiError } from "./action";
-import { affiliateGetDashboard, affiliateGetDbCharts, affiliateGetDbCommissionsTable } from "../../helpers/backend_helper";
+import { affiliateGetDashboard, affiliateGetDbCharts, affiliateGetDbCommissionsTable, affiliateGetPerformacePercetileData } from "../../helpers/backend_helper";
 
 function* getWidgetData({ id }) {
 
@@ -36,6 +36,16 @@ function* getTablesData({ id }) {
   }
 }
 
+function* getPerformanceData() {
+
+  try {
+    const response = yield call(affiliateGetPerformacePercetileData);
+    yield put(dashboardApiSuccess(GET_PERFORMANCE_DATA, response));
+  } catch (error) {
+    yield put(dashboardApiError(GET_PERFORMANCE_DATA, error));
+  }
+}
+
 export function* watchGetChartsData() {
   yield takeEvery(GET_COMMISSIONS_CHARTS_DATA, getChartsData);
 }
@@ -48,10 +58,15 @@ export function* watchGetWidgetData() {
   yield takeEvery(GET_WIDGET_DATA, getWidgetData);
 }
 
+export function* watchGetPerformanceData() {
+  yield takeEvery(GET_PERFORMANCE_DATA, getPerformanceData);
+}
+
 function* dashboardSaga() {
   yield all([fork(watchGetChartsData)]);
   yield all([fork(watchGeTablesData)]);
   yield all([fork(watchGetWidgetData)]);
+  yield all([fork(watchGetPerformanceData)]);
 }
 
 export default dashboardSaga;

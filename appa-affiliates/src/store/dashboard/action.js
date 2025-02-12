@@ -3,7 +3,8 @@ import {
   API_RESPONSE_ERROR,
   GET_COMMISSIONS_CHARTS_DATA,
   GET_COMMISSIONS_TABLE_DATA,
-  GET_WIDGET_DATA
+  GET_WIDGET_DATA,
+  GET_PERFORMANCE_DATA
 } from "./actionType";
 
 // common success
@@ -34,6 +35,11 @@ export const getCommissionsChartData = id => ({
 export const getCommissionsTableData = id => ({
   type: GET_COMMISSIONS_TABLE_DATA,
   id
+});
+
+// Appa Dashboard widget data
+export const getPerfromancePercentileData = () => ({
+  type: GET_PERFORMANCE_DATA
 });
 
 

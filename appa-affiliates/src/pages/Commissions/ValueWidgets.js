@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from 'reactstrap';
@@ -6,8 +6,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Mousewheel } from "swiper";
+import { Player } from '@lordicon/react';
+import coinsIcon from "../../assets/images/lottie/wired-outline-298-coins-hover-jump.json";
+import salesIcon from "../../assets/images/lottie/wired-outline-1339-sale-hover-pinch.json";
 
 const ValueWidgets = props => {
+
+    const coinsRef = useRef(null);
+    const salesRef = useRef(null);
+    
+    useEffect(() => {
+        coinsRef.current?.playFromBeginning();
+        salesRef.current?.playFromBeginning();
+    }, [])
 
     return (
         <React.Fragment>
@@ -16,9 +27,12 @@ const ValueWidgets = props => {
                     <CardBody>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/qmsejndz.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "55px", height: "55px" }}>
-                                </lord-icon>
+                                <Player 
+                                    ref={coinsRef} 
+                                    size={75}
+                                    icon={ coinsIcon }
+                                    onComplete={() => coinsRef.current?.playFromBeginning()}
+                                />
                             </div>
                             
                         </div>
@@ -36,7 +50,12 @@ const ValueWidgets = props => {
                     <CardBody>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <lord-icon src="https://cdn.lordicon.com/kndkiwmf.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "55px", height: "55px" }}></lord-icon>
+                                <Player 
+                                    ref={salesRef} 
+                                    size={75}
+                                    icon={ salesIcon }
+                                    onComplete={() => salesRef.current?.playFromBeginning()}
+                                />
                             </div>
                         </div>
                         <h3 className="mb-2">

@@ -266,6 +266,9 @@ export const GET_DASHBOARD_CHARTS_DATA = "/affiliates/db-charts";
 //Appa Get Dashboard Commissions Table Data
 export const GET_DASHBOARD_COMMISSIONS_DATA = "/affiliates/db-commissions";
 
+//Appa Get Dashboard Performance Data
+export const GET_PERFORMANCE_DATA = "/affiliates/performance-percentile";
+
 //Appa Get Drivers Table Data
 export const GET_DRIVERS_DATA = "/affiliates/affiliated-dm";
 

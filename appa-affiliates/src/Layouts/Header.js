@@ -20,6 +20,7 @@ import FullScreenDropdown from '../Components/Common/FullScreenDropdown';
 import NotificationDropdown from '../Components/Common/NotificationDropdown';
 import ProfileDropdown from '../Components/Common/ProfileDropdown';
 import LightDark from '../Components/Common/LightDark';
+import RankingDropdown from '../Components/Common/RankingDropdown';
 
 import { changeSidebarVisibility } from '../store/actions';
 import { useSelector, useDispatch } from "react-redux";
@@ -128,6 +129,8 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                             <LanguageDropdown />
 
                             */}
+
+                            <RankingDropdown />
 
                             {/* WebAppsDropdown 
                             <WebAppsDropdown />

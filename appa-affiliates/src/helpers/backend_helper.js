@@ -71,6 +71,9 @@ export const affiliateGetCommissionsData = id => api.get(`${url.GET_COMMISSIONS_
 // Get Commissions Data
 export const affiliateGetBankList = () => api.get(url.GET_BANK_DATA);
 
+// Get Commissions Data
+export const affiliateGetPerformacePercetileData = () => api.get(url.GET_PERFORMANCE_DATA);
+
 // Withdraw From Wallet  
 export const affiliateWithdrawWallet = data => api.create(url.POST_WITHDRAW_WALLET, data);
 

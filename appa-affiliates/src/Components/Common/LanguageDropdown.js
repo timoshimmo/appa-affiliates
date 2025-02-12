@@ -6,6 +6,8 @@ import { get, map } from "lodash";
 import i18n from "../../i18n";
 import languages from "../../common/languages";
 
+import rankingBadges from "../../common/ranking";
+
 
 const LanguageDropdown = () => {
     // Declare a new state variable, which we'll call "menu"

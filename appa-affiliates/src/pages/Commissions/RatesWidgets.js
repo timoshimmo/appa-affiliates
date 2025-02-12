@@ -1,9 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card, CardBody, Col } from 'reactstrap';
 import "swiper/css";
 import "swiper/css/pagination";
+import { Player } from '@lordicon/react';
+import dividendIcon from "../../assets/images/lottie/wired-outline-945-dividends-hover-pinch.json";
 
 const RatesWidgets = props => {
+
+    const dividendUserRef = useRef(null);
+    const dividendDriverRef = useRef(null);
+    const dividendBizRef = useRef(null);
+      
+    useEffect(() => {
+        dividendUserRef.current?.playFromBeginning();
+        dividendDriverRef.current?.playFromBeginning();
+        dividendBizRef.current?.playFromBeginning();
+    }, [])
 
     return (
         <React.Fragment>
@@ -14,9 +26,12 @@ const RatesWidgets = props => {
                       <CardBody>
                           <div className="d-flex mb-3">
                               <div className="flex-grow-1">
-                                  <lord-icon
-                                      src="https://cdn.lordicon.com/ubtcpxvi.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "55px", height: "55px" }}>
-                                  </lord-icon>
+                                <Player 
+                                    ref={index == 0 ? dividendDriverRef : index == 1 ? dividendBizRef : dividendUserRef} 
+                                    size={75}
+                                    icon={ dividendIcon }
+                                    onComplete={() => index == 0 ? dividendDriverRef.current?.playFromBeginning() : index == 1 ? dividendBizRef.current?.playFromBeginning() : dividendUserRef.current?.playFromBeginning()}
+                                />
                               </div>
                               
                           </div>
