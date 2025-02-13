@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { get, map } from "lodash";
-
-//i18n
 import i18n from "../../i18n";
 import languages from "../../common/languages";
-
-import rankingBadges from "../../common/ranking";
 
 
 const LanguageDropdown = () => {
