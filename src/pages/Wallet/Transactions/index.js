@@ -61,7 +61,7 @@ const Transactions = () => {
     }));
 
     useEffect(() => {
-        
+        const obj = JSON.parse(sessionStorage.getItem("authUser"));
         dispatch(getWallet(obj.id));
     }, [dispatch]);
 
